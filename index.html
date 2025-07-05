@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Czarny Jastrząb: Znikające Miasto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Special Elite', monospace;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+        }
+        
+        .video-container {
+            margin: 30px 0;
+        }
+        
+        iframe {
+            border: 2px solid #fff;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        
+        .wskazowka {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #fff;
+            padding: 30px;
+            margin: 30px 0;
+            font-size: 1.2em;
+            line-height: 1.8;
+            white-space: pre-line;
+            box-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+        
+        .input-section {
+            margin: 30px 0;
+        }
+        
+        input[type="text"] {
+            background: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 15px;
+            font-size: 1.2em;
+            font-family: 'Special Elite', monospace;
+            width: 200px;
+            text-align: center;
+            margin: 10px;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        
+        button {
+            background: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-family: 'Special Elite', monospace;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
+        
+        .result {
+            margin: 30px 0;
+            padding: 20px;
+            font-size: 1.3em;
+            min-height: 50px;
+        }
+        
+        .success {
+            color: #0f0;
+            text-shadow: 0 0 10px rgba(0,255,0,0.5);
+        }
+        
+        .error {
+            color: #f00;
+            text-shadow: 0 0 10px rgba(255,0,0,0.5);
+        }
+        
+        .facebook-btn {
+            background: #1877f2;
+            border: 2px solid #1877f2;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .facebook-btn:hover {
+            background: #166fe5;
+            border-color: #166fe5;
+            color: #fff;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Czarny Jastrząb: Znikające Miasto</h1>
+        
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/ZSLFz9cbyaQ" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+        </div>
+        
+        <div class="wskazowka">Obok wieje wiatr.
+Nie ten z gór, nie ten z kominów.
+To wiatr mazowiecki, chłodny, uporczywy.
+
+Niesie echo ostatnich bitew —
+tych z orłem na czapce i szablą pod płaszczem.
+
+Przechodzi przez pasy,
+przemyka pod ziemią,
+szepcze coś przy ścianie przychodni.
+
+Tam zostawili znak.
+Ale tylko ten, kto stanie na krawędzi, może go usłyszeć.
+
+Szukaj zegara, co słyszał krzyk.
+Kod jest tam, gdzie czas się zaciął.</div>
+        
+        <div class="input-section">
+            <input type="text" id="codeInput" placeholder="Wpisz godzinę..." maxlength="10">
+            <br>
+            <button onclick="checkCode()">Sprawdź</button>
+        </div>
+        
+        <div class="result" id="result"></div>
+        
+        <div class="hidden" id="successSection">
+            <p class="success">Świetnie. Śledź kolejne tropy na Facebooku.</p>
+            <a href="https://www.facebook.com/profile.php?id=61578158936594" target="_blank" class="facebook-btn button">
+                Przejdź do Facebook
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function checkCode() {
+            const input = document.getElementById('codeInput');
+            const result = document.getElementById('result');
+            const successSection = document.getElementById('successSection');
+            const code = input.value.trim();
+            
+            if (code === '06:00') {
+                result.innerHTML = '';
+                successSection.classList.remove('hidden');
+                input.style.display = 'none';
+                document.querySelector('button').style.display = 'none';
+            } else {
+                result.innerHTML = '<span class="error">Niepoprawny kod. Spróbuj ponownie.</span>';
+                successSection.classList.add('hidden');
+                input.value = '';
+                input.focus();
+            }
+        }
+        
+        // Obsługa Enter w polu tekstowym
+        document.getElementById('codeInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkCode();
+            }
+        });
+        
+        // Fokus na pole tekstowe przy załadowaniu
+        window.onload = function() {
+            document.getElementById('codeInput').focus();
+        };
+    </script>
+</body>
+</html>
